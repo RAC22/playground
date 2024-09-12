@@ -1,0 +1,98 @@
+html,
+body {
+	background-color: #000;
+}
+
+body {
+	margin: 0;
+}
+
+canvas {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+
+div {
+	color: white;
+	position: relative;
+	z-index: 1;
+}
+
+.container {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	block-size: fit-content;
+	width: fit-content;
+	margin-top: 10vh;
+	margin-bottom: 100vh;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+h1 {
+	animation: fadeIn 2s linear forwards;
+}
+
+section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	animation-name: fadeIn;
+	animation-duration: 2s;
+	opacity: 0.75;
+	z-index: 1;
+}
+
+.hidden {
+	display: none;
+}
+header {
+	position: relative;
+	z-index: 1;
+}
+.optionsBtn {
+	position: fixed;
+	opacity: 0.3;
+}
+
+#editModal {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	opacity: 100;
+	background-color: rgb(27, 27, 27);
+	padding: 30px;
+	border-radius: 20px;
+	margin: 100;
+	z-index: 300;
+	border: solid;
+	border-width: 1px;
+	border-color: rgb(88, 88, 88);
+}
+.form-group {
+	padding: 10px;
+}
+#blurElement {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(2px);
+}

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=no"
+		/>
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-capable" content="yes" />
+
+		<title>The Board</title>
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="./index.css" />
+	</head>
+	<header>
+		<div class="d-flex align-items-end flex-column mb-3">
+			<button
+				class="btn btn-secondary optionsBtn"
+				type="button"
+				data-bs-toggle="offcanvas"
+				data-bs-target="#offcanvasRight"
+				aria-controls="offcanvasRight"
+			>
+				Color fluid Options
+			</button>
+		</div>
+	</header>
+	<body>
+		<div class="container">
+			<section>
+				<div id="blurElement" class="hidden"></div>
+				<div id="editModal" class="hidden">
+					<form id="updateForm">
+						<div class="form-group row">
+							<label for="Name" class="col-sm-2 col-form-label"></label>
+						</div>
+						<div class="form-group row">
+							<label for="Product" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input class="form-control data" id="Product" placeholder="" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="SG" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="SG"
+									placeholder=""
+									type="number"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="Al2O3" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="Al2O3"
+									placeholder=""
+									type="number"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="Al" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="Al"
+									placeholder=""
+									type="number"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="Basicity" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="Basicity"
+									placeholder=""
+									type="number"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="AlumPercent" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="AlumPercent"
+									placeholder=""
+									type="number"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="FreeAcid" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="FreeAcid"
+									placeholder=""
+									type="number"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="pH" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="pH"
+									placeholder=""
+									type="number"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="Chloride" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="Chloride"
+									placeholder=""
+									type="number"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="Turbidity" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="Turbidity"
+									placeholder=""
+									type="number"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="Updated" class="col-sm-5 col-form-label"></label>
+							<div class="col-sm-7">
+								<input
+									class="form-control data"
+									id="Updated"
+									placeholder=""
+									type="date"
+								/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-10">
+								<div class="btn btn-primary" id="update">Update</div>
+								<div class="btn btn-secondary" id="cancel">Cancel</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<table
+					class="table table-dark table-hover table-bordered table-striped"
+					id="boardTable"
+				>
+					<thead>
+						<tr id="headRow">
+							<th>Tank</th>
+							<th>Product</th>
+							<th>SG</th>
+							<th>Al2O3</th>
+							<th>Al</th>
+							<th>Basicity</th>
+							<th>AlumPercent</th>
+							<th>FreeAcid</th>
+							<th>pH</th>
+							<th>Chloride</th>
+							<th>Turbidity</th>
+							<th>Updated</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="body"></tbody>
+				</table>
+			</section>
+		</div>
+		<canvas> </canvas>
+		<div
+			class="offcanvas offcanvas-end"
+			tabindex="-1"
+			id="offcanvasRight"
+			aria-labelledby="offcanvasRightLabel"
+			data-bs-theme="dark"
+			data-bs-backdrop="false"
+		>
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasRightLabel">
+					ColorFluid sim Options
+				</h5>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="offcanvas"
+					aria-label="Close"
+				></button>
+			</div>
+			<div class="offcanvas-body" id="offCanvasBody">
+				<label for="qualitySelect">Quality</label>
+				<select
+					id="qualitySelect"
+					class="form-select form-select-sm"
+					aria-label=".form-select-sm example"
+				>
+					<option value="very low">very low</option>
+					<option value="low">low</option>
+					<option value="medium">medium</option>
+					<option value="high">high</option>
+				</select>
+				<label for="simRes">Sim Resolution</label>
+				<select
+					id="simRes"
+					class="form-select form-select-sm"
+					aria-label=".form-select-sm example"
+				>
+					<option value="32">32</option>
+					<option value="64">64</option>
+					<option value="128">128</option>
+					<option value="256">256</option>
+				</select>
+				<label for="dissipation" class="form-label">Dissipation</label>
+				<output></output>
+				<input
+					type="range"
+					class="form-range col-4"
+					min="0"
+					max="4"
+					step="0.1"
+					id="dissipation"
+					oninput="this.previousElementSibling.value = this.value"
+				/>
+				<label for="deceleration" class="form-label">Deceleration</label>
+				<output></output>
+				<input
+					type="range"
+					class="form-range col-4"
+					min="0"
+					max="4"
+					step="0.1"
+					id="deceleration"
+					oninput="this.previousElementSibling.value = this.value"
+				/>
+				<label for="pressure" class="form-label">Pressure</label>
+				<output></output>
+				<input
+					type="range"
+					class="form-range col-4"
+					min="0"
+					max="1"
+					step="0.01"
+					id="pressure"
+					oninput="this.previousElementSibling.value = this.value"
+				/>
+				<label for="vorticity" class="form-label">Vorticity</label>
+				<output></output>
+				<input
+					type="range"
+					class="form-range col-4"
+					min="0"
+					max="50"
+					step="1"
+					id="vorticity"
+					oninput="this.previousElementSibling.value = this.value"
+				/>
+				<label for="size" class="form-label">Interaction Radius</label>
+				<output></output>
+				<input
+					type="range"
+					class="form-range col-4"
+					min="0"
+					max="1"
+					step="0.01"
+					id="size"
+					oninput="this.previousElementSibling.value = this.value"
+				/>
+				<div class="form-check form-switch">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						role="switch"
+						id="shading"
+					/>
+					<label class="form-check-label" for="shading">Shading</label>
+				</div>
+				<div class="form-check form-switch">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						role="switch"
+						id="colorful"
+					/>
+					<label class="form-check-label" for="colorful">Color Rotation</label>
+				</div>
+				<div class="form-check form-switch">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						role="switch"
+						id="paused"
+					/>
+					<label class="form-check-label" for="paused">Paused</label>
+				</div>
+				<h3>Bloom :</h3>
+				<div class="form-check form-switch">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						role="switch"
+						id="bloomEnable"
+					/>
+					<label class="form-check-label" for="bloomEnable">Enabled</label>
+				</div>
+				<label for="bloomIntensity" class="form-label">Intensity</label>
+				<output></output>
+				<input
+					type="range"
+					class="form-range col-4"
+					min="0"
+					max="2"
+					step="0.1"
+					id="bloomIntensity"
+					oninput="this.previousElementSibling.value = this.value"
+				/>
+				<label for="bloomThreshold" class="form-label">Threshold</label>
+				<output></output>
+				<input
+					type="range"
+					class="form-range col-4"
+					min="0"
+					max="1"
+					step="0.1"
+					id="bloomThreshold"
+					oninput="this.previousElementSibling.value = this.value"
+				/>
+				<h3>Sunrays :</h3>
+				<div class="form-check form-switch">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						role="switch"
+						id="sunraysEnable"
+					/>
+					<label class="form-check-label" for="sunraysEnable">Enabled</label>
+				</div>
+				<label for="sunrayWeight" class="form-label">Weight</label>
+				<output></output>
+				<input
+					type="range"
+					class="form-range col-4"
+					min="0"
+					max="1"
+					step="0.1"
+					id="sunrayWeight"
+					oninput="this.previousElementSibling.value = this.value"
+				/>
+			</div>
+		</div>
+		<script type="module" src="./content.js"></script>
+		<script src="./script.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
