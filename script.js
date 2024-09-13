@@ -1679,17 +1679,17 @@ function splatPointer(pointer) {
 }
 
 function multipleSplats(amount) {
-	for (let i = 0; i < amount; i++) {
-		const color = generateColor()
-		color.r *= 10.0
-		color.g *= 10.0
-		color.b *= 10.0
-		const x = Math.random()
-		const y = Math.random()
-		const dx = 1000 * (Math.random() - 0.5)
-		const dy = 1000 * (Math.random() - 0.5)
-		splat(x, y, dx, dy, color)
-	}
+	// for (let i = 0; i < amount; i++) {
+	// 	const color = generateColor()
+	// 	color.r *= 10.0
+	// 	color.g *= 10.0
+	// 	color.b *= 10.0
+	// 	const x = Math.random()
+	// 	const y = Math.random()
+	// 	const dx = 1000 * (Math.random() - 0.5)
+	// 	const dy = 1000 * (Math.random() - 0.5)
+	// 	splat(x, y, dx, dy, color)
+	// }
 }
 
 function splat(x, y, dx, dy, color) {
@@ -1725,7 +1725,7 @@ canvas.addEventListener("mouseenter", (e) => {
 	updatePointerDownData(pointer, -1, posX, posY)
 })
 
-canvas.addEventListener("mousemove", (e) => {
+window.addEventListener("mousemove", (e) => {
 	let pointer = pointers[0]
 	if (!pointer.down) return
 	let posX = scaleByPixelRatio(e.offsetX)
@@ -1749,7 +1749,7 @@ canvas.addEventListener("touchstart", (e) => {
 	}
 })
 
-canvas.addEventListener(
+window.addEventListener(
 	"touchmove",
 	(e) => {
 		e.preventDefault()

@@ -15,7 +15,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="mobile-web-app-capable" content="yes" />
 
-		<title>The Board</title>
+		<title>Roberts Playground</title>
 
 		<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -26,9 +26,18 @@
 		<link rel="stylesheet" href="./index.css" />
 	</head>
 	<header>
-		<div class="d-flex align-items-end flex-column mb-3">
+		<div class="d-flex justify-content-between flex-row">
 			<button
-				class="btn btn-secondary optionsBtn"
+				class="btn btn-secondary seeThrough"
+				type="button"
+				data-bs-toggle="offcanvas"
+				data-bs-target="#offcanvasLeft"
+				aria-controls="offcanvasLeft"
+			>
+				Explore Robert's Content
+			</button>
+			<button
+				class="btn btn-secondary seeThrough"
 				type="button"
 				data-bs-toggle="offcanvas"
 				data-bs-target="#offcanvasRight"
@@ -39,166 +48,135 @@
 		</div>
 	</header>
 	<body>
-		<div class="container">
-			<section>
-				<div id="blurElement" class="hidden"></div>
-				<div id="editModal" class="hidden">
-					<form id="updateForm">
-						<div class="form-group row">
-							<label for="Name" class="col-sm-2 col-form-label"></label>
-						</div>
-						<div class="form-group row">
-							<label for="Product" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input class="form-control data" id="Product" placeholder="" />
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="SG" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="SG"
-									placeholder=""
-									type="number"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="Al2O3" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="Al2O3"
-									placeholder=""
-									type="number"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="Al" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="Al"
-									placeholder=""
-									type="number"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="Basicity" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="Basicity"
-									placeholder=""
-									type="number"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="AlumPercent" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="AlumPercent"
-									placeholder=""
-									type="number"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="FreeAcid" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="FreeAcid"
-									placeholder=""
-									type="number"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="pH" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="pH"
-									placeholder=""
-									type="number"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="Chloride" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="Chloride"
-									placeholder=""
-									type="number"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="Turbidity" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="Turbidity"
-									placeholder=""
-									type="number"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="Updated" class="col-sm-5 col-form-label"></label>
-							<div class="col-sm-7">
-								<input
-									class="form-control data"
-									id="Updated"
-									placeholder=""
-									type="date"
-								/>
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-sm-10">
-								<div class="btn btn-primary" id="update">Update</div>
-								<div class="btn btn-secondary" id="cancel">Cancel</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<table
-					class="table table-dark table-hover table-bordered table-striped"
-					id="boardTable"
-				>
-					<thead>
-						<tr id="headRow">
-							<th>Tank</th>
-							<th>Product</th>
-							<th>SG</th>
-							<th>Al2O3</th>
-							<th>Al</th>
-							<th>Basicity</th>
-							<th>AlumPercent</th>
-							<th>FreeAcid</th>
-							<th>pH</th>
-							<th>Chloride</th>
-							<th>Turbidity</th>
-							<th>Updated</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody id="body"></tbody>
-				</table>
-			</section>
-		</div>
 		<canvas> </canvas>
+		<!-- mainModal -->
 		<div
-			class="offcanvas offcanvas-end"
+			class="modal fade mostlyOpaque"
+			id="exampleModal"
+			tabindex="-1"
+			data-bs-theme="dark"
+			aria-labelledby="exampleModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+						Lorem ipsum odor amet, consectetuer adipiscing elit. Class efficitur
+						senectus urna finibus tincidunt, litora torquent torquent. Lectus
+						placerat curae quis nunc ut porta vehicula ligula integer. Eget
+						bibendum pharetra magna primis tincidunt. Risus dictum suscipit
+						blandit litora faucibus. Sodales pharetra vehicula iaculis sit porta
+						adipiscing vel himenaeos ullamcorper. Suscipit suscipit hendrerit
+						tincidunt phasellus gravida sed fermentum. Montes porta commodo
+						congue maecenas dictum odio non nullam dis. Interdum accumsan class
+						tortor parturient maecenas. Donec aliquam inceptos convallis mollis
+						donec. Eleifend sollicitudin massa sociosqu eget taciti libero
+						feugiat auctor. Accumsan congue justo metus senectus; tellus
+						elementum eleifend sem aptent. Nunc parturient dictum conubia sed
+						nisl ad fermentum varius. Viverra lorem metus augue per fames
+						maecenas ipsum. Nam laoreet pulvinar vehicula purus parturient
+						sagittis tristique. Congue aliquet nostra; donec congue ad accumsan
+						tempus curae? Feugiat faucibus morbi vitae sem vel sapien fames
+						massa. Diam mattis elementum risus ullamcorper, cubilia nulla
+						luctus. Ultrices sodales taciti risus nibh curabitur non nec felis.
+						Etiam nisi justo nunc lacus vivamus curae. Hendrerit quis duis et
+						egestas interdum, risus massa aliquet. Ex lorem tristique aliquam
+						efficitur ex nascetur finibus nullam odio. Vivamus turpis
+						ullamcorper, blandit sed leo eu. Mus congue sociosqu augue cursus
+						torquent congue odio dui leo. Ultricies taciti semper vulputate
+						pellentesque porttitor. Integer fringilla torquent molestie inceptos
+						viverra adipiscing mauris himenaeos lobortis. Et egestas laoreet
+						himenaeos arcu per. Potenti porta maximus dis ut curabitur dis
+						hendrerit aliquet mollis. Varius velit dolor at iaculis nostra
+						nascetur. Nunc ligula erat senectus dictum commodo mi. Duis nec
+						taciti eros pulvinar diam habitant viverra? Adipiscing maecenas
+						euismod arcu consequat, quam id dolor cras varius! Iaculis viverra
+						varius, torquent vitae turpis dignissim facilisis ex. Curabitur
+						nulla varius sem, praesent iaculis elit potenti semper. Potenti sed
+						quam varius massa nisi potenti senectus. Venenatis massa feugiat
+						dolor est dapibus augue. Cursus blandit ex luctus aenean id nulla ac
+						ultricies. Velit nam sagittis magna turpis parturient feugiat nisi
+						sit neque. Pulvinar praesent vestibulum nam dolor purus mattis lacus
+						cursus. Commodo semper placerat eget rhoncus nibh. Dignissim netus
+						metus montes euismod mus aliquet velit purus. Netus sociosqu at
+						dolor amet odio platea. Faucibus tincidunt malesuada venenatis
+						consectetur natoque viverra facilisi. Posuere euismod cursus aliquam
+						class risus curabitur, nisl inceptos. Consequat cras scelerisque
+						molestie est sodales consequat. Consectetur cursus quis cubilia sed;
+						litora sed neque proin? Bibendum sit phasellus etiam vitae volutpat
+						quam faucibus. Adipiscing libero ligula faucibus finibus mi; diam
+						nostra. Placerat sollicitudin euismod nunc vehicula habitant.
+						Adipiscing vehicula faucibus sagittis netus montes ultrices fames
+						nascetur. Pulvinar augue parturient tortor bibendum euismod dapibus
+						fermentum sollicitudin. Potenti lobortis malesuada lorem vivamus,
+						ipsum bibendum. Morbi justo ad eleifend suspendisse leo massa nibh
+						conubia. Taciti pulvinar suscipit mus rutrum; conubia interdum
+						vivamus. Per interdum leo conubia purus nascetur. Netus gravida
+						tempus; habitant habitasse ad at accumsan lacinia. At senectus fames
+						ante lobortis vulputate rhoncus vulputate. Auctor nisl volutpat
+						primis efficitur neque! Magnis per sit nullam curabitur torquent
+						eleifend donec. Eget cursus finibus sapien fusce mattis pharetra.
+						Per dis mattis ultrices; consectetur duis per platea. Lacus cursus
+						massa metus proin commodo; turpis dictum mollis. Sapien semper ipsum
+						metus; maximus augue tempus luctus. In mollis magnis felis inceptos
+						purus. Lacinia dictum himenaeos mauris euismod nostra. Interdum
+						laoreet aliquet nisi quam suspendisse nullam hac netus. Lacinia
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-secondary"
+							data-bs-dismiss="modal"
+						>
+							Close
+						</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div
+			class="offcanvas offcanvas-start mostlyOpaque"
+			tabindex="-1"
+			id="offcanvasLeft"
+			aria-labelledby="offcanvasLeftLabel"
+			data-bs-theme="dark"
+			data-bs-backdrop="false"
+		>
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasLeftLabel">
+					Explore my stuffs
+				</h5>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="offcanvas"
+					aria-label="Close"
+				></button>
+			</div>
+			<div class="offcanvas-body" id="offCanvasBody">
+				<!-- Main content list -->
+				<button
+					type="button"
+					class="btn btn-primary"
+					data-bs-toggle="modal"
+					data-bs-target="#exampleModal"
+				>
+					Launch demo modal
+				</button>
+			</div>
+		</div>
+		<div
+			class="offcanvas offcanvas-end mostlyOpaque"
 			tabindex="-1"
 			id="offcanvasRight"
 			aria-labelledby="offcanvasRightLabel"
